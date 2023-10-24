@@ -1,43 +1,28 @@
 #include <stdio.h>
-#include <stdbool.h>
-
 int main() {
     int s1, d1, s2, d2, s3, d3;
+    scanf("%d %d", &s1, &d1);
+    scanf("%d %d", &s2, &d2);
+    scanf("%d %d", &s3, &d3);
+    int timeline[25] = {0};
 
-    // 输入三笔订单的发车时间和返回时间
-    scanf("%d %d %d %d %d %d", &s1, &d1, &s2, &d2, &s3, &d3);
+    for (int i = s1; i < d1; i++) {
+        timeline[i]++;
+    }
+    for (int i = s2; i < d2; i++) {
+        timeline[i]++;
+    }
+    for (int i = s3; i < d3; i++) {
+        timeline[i]++;
+    }
+    int maxCars = 0;
+    for (int i = 0; i < 25; i++) {
+        if (timeline[i] > maxCars) {
+            maxCars = timeline[i];
+        }
+    }
 
-    // 初始化巴士数量为1，因为第一笔订单至少需要一辆巴士
-    int busCount = 1;
-
-    // 逐个检查后续订单
-    // 如果下一个订单的发车时间早于或等于前一个订单的返回时间，则使用同一辆巴士
-    if (s2 <= d1 && s3>d1) {
-        d1 = d2; // 更新前一个订单的返回时间
-    } else if (s3 <= d1 && s2>d1) {
-        d1 = d3; // 更新前一个订单的返回时间
-    } else {
-        // 如果下一个订单无法使用同一辆巴士，则需要为下一个订单分配一辆新的巴士
-        busCount++;
-    }
-    if (s1 <= d2 && s3>d2) {
-        d1 = d2; // 更新前一个订单的返回时间
-    } else if (s3 <= d2 && s1>d2) {
-        d1 = d3; // 更新前一个订单的返回时间
-    } else {
-        // 如果下一个订单无法使用同一辆巴士，则需要为下一个订单分配一辆新的巴士
-        busCount++;
-    }
-    if (s2 <= d3 && s1>d3) {
-        d1 = d2; // 更新前一个订单的返回时间
-    } else if (s1 <= d3 && s2>d3) {
-        d1 = d3; // 更新前一个订单的返回时间
-    } else {
-        // 如果下一个订单无法使用同一辆巴士，则需要为下一个订单分配一辆新的巴士
-        busCount++;
-    }
-    // 输出至少需要的巴士数量
-    printf("%d \n", busCount);
+    printf("%d\n", maxCars);
 
     return 0;
 }
