@@ -22,3 +22,4 @@ int main()
 	}
 	while (a != 0) scanf("%d", &a);
 }
+
